@@ -1,0 +1,115 @@
+#menu div{
+	border: 5px black;
+	height: 400px;
+	width: 50%;
+	
+}
+#menu ul{
+	list-style-type: disc;
+	margin: 0;
+	padding: 0;
+	background-color: #2a2a2a;
+	height: 45px;
+	width: 100%;
+	text-align: center;
+	margin-top: 1px;
+	
+}
+#menu li{
+	border: 2px solid white;
+	border-color: #ffd700;
+	display: inline-block;
+	float: none;
+	padding-left:2em;
+	height: 25px;
+	width:100px;
+	/*opacity: 0.7;*/
+	color: #ffd700;
+	box-sizing: content-box;
+	list-style-type: none;
+	text-align: center;
+	padding-top: 13px;
+	font-size: 20px;
+	margin-top: 1px;
+}
+
+#menu #idid #formid button{
+	font-size: 19px;
+	margin-left: -42px;
+	margin-top: -5px;
+	width: 140%;
+	border: none;
+	color: #ffd700;
+	background-color: #2a2a2a;
+	font-family: "Lucida Handwriting", Cursive;
+}
+
+#pagebody{
+	background-color: #ffd700;
+	background-image: url("../resources/img/Weightbackground.jfif"); 
+	/*background-repeat: no-repeat,repeat;*/
+	
+}
+
+#InputBack{
+	background-color: #ececec;
+	border: 2px solid white;
+	border-color: #000000;
+}
+
+#createbody{
+	background-color: #ffd700;
+	background-image: url("../resources/img/backgroundkettle.jfif");
+	background-size: 600px 300px;
+	background-repeat: no-repeat;
+	background-position: 300px 158px;
+	/*<img src="resources/img/Motibation.jfif" style="float:right;width:350px;height:300px;padding-top:-20px;">*/
+}
+
+#DatabaseBodyView{
+	background-color: #ffd700;
+	background-size: 600px 300px;
+	background-repeat: no-repeat;
+	background-position: 300px 158px;
+	/*<img src="resources/img/Motibation.jfif" style="float:right;width:350px;height:300px;padding-top:-20px;">*/
+}
+
+#confirmPagebody{
+	background-color: #2d2d2d;
+	
+}
+
+#confirmPagebody #confirmText{
+	/*background-color: ;*/
+	color: #d5abab;
+}
+
+#pagebody #goldTextTitle{
+	color: #ffd700;
+	font-family: "Garamond", Serif;
+	text-align: center;
+}
+
+#pagebody #goldTextParagraph{
+	color: #ffd700;
+}
+
+#pagebody #homeSignup{
+	color: #ffd700;
+	display:inline;
+	text-align:center;
+	font-size: 20px;
+	text-decoration: underline;
+}
+
+#createbody #createDiv #createF{
+	padding-top:10px;
+	color: #ffd700;
+}
+
+
+#pagebody #signupButton{
+	color:#ffd700;
+	margin-left: -50px;
+	
+}
