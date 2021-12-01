@@ -9,7 +9,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name="Account")
 public class Account {
-	
+	  
 	@Id
 	@Column(name="USERID")
 	private Integer UserID;
