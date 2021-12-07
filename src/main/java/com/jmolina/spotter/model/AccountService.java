@@ -22,6 +22,7 @@ public class AccountService {
 	@Autowired
 	private AccountImpl accountDbManager;
 
+	//comment for testing in git branches pushes
 	
 	public void createAccount(Account acc){
 		accountDbManager.addAccount(acc);
@@ -40,7 +41,7 @@ public class AccountService {
 	public void getLogin(String email) {	
 		accountDbManager.getLogin(email);
 	}
-	
+	  
 
 	public Object getUserAccount(String email) {
 		return accountDbManager.getUserAccount(email);
