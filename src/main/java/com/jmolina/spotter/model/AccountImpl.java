@@ -1,90 +1,112 @@
-package NJO.NJO.model;
+package com.jmolina.spotter.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.servlet.support.SessionFlashMapManager;
 
-import NJO.NJO.config.HibernateUtil;
+import com.jmolina.spotter.config.SessionDoa;
+
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 
-@Component("database")
-public class Database implements DatabaseManager {
+@Repository("accountImpl")
+public class AccountImpl implements AccountDoa {
+	
+	@Autowired
+	private SessionDoa sessDoa =  (SessionDoa) (new ClassPathXmlApplicationContext("SessionDoaX.xml").getBean("sessionFactory"));  
+	private SessionFactory sessFac = sessDoa.sessionFactory();
+	private Session sess = sessFac.openSession();
 	
 	@Override
 	public void addAccount(Account acc) {
-		Session sess = HibernateUtil.getSessionFactory().openSession();
+		checkSessionStatus("open");
 		sess.beginTransaction();
 		acc.setUserID(genUserID());
 		sess.save(acc);
 		sess.getTransaction().commit();
+		checkSessionStatus("close");
+	}
+	
+	public void checkSessionStatus(String status) {
+		if(status.equalsIgnoreCase("close")) {
+			if(sess != null) {
+				sess.close();
+				
+			}
+		}else if(status.equalsIgnoreCase("open")) {
+			if(sess != null) {
+				sess.close();
+			}
+			sess = sessFac.openSession();
+		}
 	}
 	
 	@Override
 	public void updateAccount(Account acc) {
-		Session sess = HibernateUtil.getSessionFactory().openSession();
+		checkSessionStatus("open");
 		Transaction trax = sess.beginTransaction();
 		sess.update(acc);
 		trax.commit();
-		sess.close();
+		checkSessionStatus("close");
+		
 	}
 	
 	@Override
 	public void deleteAccount(Account acc) {
-		Session sess = HibernateUtil.getSessionFactory().openSession();
+		checkSessionStatus("open");
 		sess.beginTransaction();
-		Query query = sess.createQuery("delete from Account where UserID = :UID");
-		//getter
+		Query query = sess.createQuery("delete from Account where userID = :UID");
 		query.setParameter("UID",acc.getUserID() );
 		query.executeUpdate();
-		sess.close();
+		checkSessionStatus("close");
+		
 	}
 	
 	@Override
 	public void getLogin(String email) {	
-		Session sess = HibernateUtil.getSessionFactory().openSession();
 		sess.beginTransaction();
 		Query query = sess.createQuery("Select email,password from Account where email = :email");
-		//getter
-		//query.setParameter("first", first);
 		query.setParameter("email", email);
 		
 		System.out.println(query.getFirstResult()+"");
-		sess.close();
+		
 		
 	}
 	
 	@Override
 	public Object getUserAccount(String email) {
-		Session sess = HibernateUtil.getSessionFactory().openSession();
 		sess.beginTransaction();
 		Query query = sess.createQuery("from Account where email = :email");
-		//getter
-		//query.setParameter("first", first);
 		query.setParameter("email", email);
-		
 		Account acc = (Account) query.list().get(0);
-		sess.close();
+	
 		return acc;
 	}
 	
 	@Override
 	public List<Account> getAllUser(){
-		Session sess = HibernateUtil.getSessionFactory().openSession();
+		this.checkSessionStatus("open");
 		CriteriaBuilder cb = sess.getCriteriaBuilder();
 		CriteriaQuery<Account> query = cb.createQuery(Account.class);
 		Root<Account> rootEntry = query.from(Account.class);
 		CriteriaQuery<Account> all = query.select(rootEntry);
 		
 		TypedQuery<Account> allQ = sess.createQuery(all);
-		
 		return allQ.getResultList();
 	}
 	

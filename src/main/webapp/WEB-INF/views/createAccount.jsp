@@ -28,9 +28,9 @@
         		<div style="width:300px;height:300px;background-color: black;" ng-controller="InputVariable">
         		<ul>
         			<li id="createF"><label for="fname">First Name:</label>
-			        	<input type="text" id="fname" name="fname" ng-model="firstname" value="" required><br></li>
+			        	<input type="text" id="fname" name="fname" ng-model="firstName" value="" required><br></li>
 		        	<li id="createF"><label for="lname">Last Name:</label>
-		        		<input type="text" id="lname" name="lname" ng-model="lastname" value="" required><br></li>
+		        		<input type="text" id="lname" name="lname" ng-model="lastName" value="" required><br></li>
 	        		<li id="createF"><label for="ename" style="padding-left:32px">Email:</label>
 		        		<input type="text" id="ename" name="ename" ng-model="email" value="" required><br></li>
 	        		<li id="createF"><label for="password" style="padding-left:8px">Password:</label>

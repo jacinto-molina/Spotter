@@ -1,4 +1,4 @@
-package NJO.NJO.controller;
+package com.jmolina.spotter.controller;
 
 import java.util.HashMap;
 import java.util.List;
@@ -21,17 +21,16 @@ import org.springframework.web.servlet.ModelAndView;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import NJO.NJO.model.Account;
-import NJO.NJO.model.AccountManager;
-import NJO.NJO.model.Database;
+import com.jmolina.spotter.model.Account;
+import com.jmolina.spotter.model.AccountService;
+import com.jmolina.spotter.model.AccountImpl;
 
 
 @Controller
 public class HomeController {
-	//private static final Logger logger = Logger.getLogger(HomeController.class);
-	
+		
 	@Autowired
-	private Database dbManager = new Database();
+	private AccountService accService;
 
 	@RequestMapping(value="/",method= RequestMethod.GET)
 	public ModelAndView test(HttpServletResponse response){
@@ -72,10 +71,6 @@ public class HomeController {
 		ModelAndView confirmAccPage = new ModelAndView("/");
 		
 		confirmAccPage.addObject("acc",account); //use Account object being passed in.
-		
-		//async call
-		//dbManager.addAccount(account);
-		
 		return confirmAccPage;
 	}
 	
@@ -110,7 +105,7 @@ public class HomeController {
 		String email = (String) json.get("email");
 		
 		System.out.println("email: " + email);
-		Account acc = (Account)dbManager.getUserAccount(email);
+		Account acc = (Account)accService.getUserAccount(email);
 		
 		ObjectMapper mapper = new ObjectMapper();
 		String jsonStr = mapper.writeValueAsString(acc);
@@ -121,8 +116,7 @@ public class HomeController {
 	@CrossOrigin(origins = "http://localhost:8081")
 	@RequestMapping(value="/GetAllUsers", method = RequestMethod.GET)
 	public ResponseEntity<Object> GetAllUsers() throws JsonProcessingException{
-		
-			List<Account> test = (List<Account>)dbManager.getAllUser();
+			List<Account> test = (List<Account>)accService.getAllUser();
 			ObjectMapper mapper = new ObjectMapper();
 			String jsonStr = mapper.writeValueAsString(test);
 		
@@ -135,7 +129,7 @@ public class HomeController {
 		ObjectMapper objMap = new ObjectMapper();
 		Account acc = objMap.readValue(obj, Account.class);
 		
-		dbManager.deleteAccount(acc);
+		accService.deleteAccount(acc);
 		return new ResponseEntity<Object>("",HttpStatus.OK);
 	}
 	
@@ -145,8 +139,7 @@ public class HomeController {
 		ObjectMapper objMap = new ObjectMapper();
 		Account acc = objMap.readValue(obj, Account.class);
 		
-		dbManager.updateAccount(acc);
-		
+		accService.updateAccount(acc);
 		return new ResponseEntity<Object>("",HttpStatus.OK);
 	}
 	
@@ -156,10 +149,7 @@ public class HomeController {
 		ObjectMapper objMap = new ObjectMapper();
 		Account acc = objMap.readValue(obj, Account.class);
 		
-		dbManager.addAccount(acc);
-		//logger.info("In Post Spring api endpoint: "+acc.toString());
-		//System.out.println("In Post Spring api endpoint: "+acc.toString());
-		
+		accService.createAccount(acc);
 		return new ResponseEntity<Object>("",HttpStatus.CREATED); 
 	}
 	

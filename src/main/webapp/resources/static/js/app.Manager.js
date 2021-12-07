@@ -16,14 +16,12 @@ angular.module('App',['AppHttp']).controller('ManagerController',ManagerControll
 		}
 		
 		function UpdateAccountMeth(acc){
-			//alert(JSON.stringify(acc))
 			updateUser(HttpAPICall,acc,"/updateUser").then(function(data){
 				window.location.reload();
 			})
 		}
 		
 		getAllUserData(HttpAPICall,"/GetAllUsers").then(function(data){
-			//alert(data + " | " + JSON.stringify(data));
 			vm.AccountList = data;
 		})
 		

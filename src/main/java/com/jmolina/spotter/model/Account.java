@@ -1,4 +1,4 @@
-package NJO.NJO.model;
+package com.jmolina.spotter.model;
 
 
 import jakarta.persistence.Column;
@@ -12,13 +12,13 @@ public class Account {
 	  
 	@Id
 	@Column(name="USERID")
-	private Integer UserID;
+	private Integer userID;
 	
 	@Column(name="FIRSTNAME")
-	private String firstname;
+	private String firstName;
 	
 	@Column(name="LASTNAME")
-	private String lastname;
+	private String lastName;
 	
 	@Column(name="WEIGHT")
 	private Integer weight;
@@ -37,19 +37,19 @@ public class Account {
 	
 	
 	public String getFirstname() {
-		return firstname;
+		return firstName;
 	}
 
 	public void setFirstname(String fname) {
-		this.firstname = fname;
+		this.firstName = fname;
 	}
 
 	public String getLastname() {
-		return lastname;
+		return lastName;
 	}
 
 	public void setLastname(String lname) {
-		this.lastname = lname;
+		this.lastName = lname;
 	}
 
 	public Integer getWeight() {
@@ -93,15 +93,15 @@ public class Account {
 	}
 
 	public String toString() {
-		return String.format("Name: %s %s email %s Height: %d'%d Weight: %d", this.firstname, this.lastname, this.email, this.selectFeet,this.selectInch, this.weight);
+		return String.format("Name: %s %s email %s Height: %d'%d Weight: %d", this.firstName, this.lastName, this.email, this.selectFeet,this.selectInch, this.weight);
 	}
 
 	public Integer getUserID() {
-		return UserID;
+		return userID;
 	}
 
-	public void setUserID(Integer userID) {
-		UserID = userID;
+	public void setUserID(Integer uID) {
+		this.userID = uID;
 	}
 
 
