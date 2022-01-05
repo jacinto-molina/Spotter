@@ -22,7 +22,6 @@ angular.module('App',['AppHttp']).controller('ManagerController',ManagerControll
 		}
 		//GetAllUsers
 		getAllUserData(HttpAPICall,"/GetAllUsersTest").then(function(data){
-			alert("After method data call")
 			vm.AccountList = data;
 		})
 		
